@@ -1,0 +1,86 @@
+html{
+	background-color:#333;
+	color:#ccc;
+}
+
+body{
+	background-color:#222;
+	color:#ddd;
+}
+
+
+#trackerList{
+	background-color:#333;
+	color:#ccc;
+}
+#trackerList::-webkit-scrollbar-track {background-color:#999;}
+#trackerList::-webkit-scrollbar-track-piece { background-color:#666;}
+#trackerList::-webkit-scrollbar-thumb {background-color:#ccc;}
+
+#trackerList .tracker{
+	border-color:#666;
+}
+#trackerList .tracker .trackerName input{
+	background-color:#666;
+	color:#fff;
+}
+#trackerList .tracker.changed .trackerValue{
+	color:#ff0;
+	font-weight:bold;
+}
+
+.icon{
+	background-color:#ccc;
+}
+.icon .iconContent{
+	background-size:100% 100%;
+}
+
+.icon.headerControlRefresh .iconContent {
+	background-image:url("icon/ionicons/refresh.png");
+}
+.icon.headerControlSetting .iconContent {
+	background-image:url("icon/ionicons/gear-b.png");
+}
+.icon.headerControlCreate .iconContent {
+	background-image:url("icon/ionicons/plus-round.png");
+}
+.icon.trackerControlOpen .iconContent {
+	background-image:url("icon/ionicons/forward.png");
+}
+.icon.trackerControlRefresh .iconContent {
+	background-image:url("icon/ionicons/refresh.png");
+}
+.icon.trackerControlSetting .iconContent {
+	background-image:url("icon/ionicons/gear-b.png");
+}
+.icon.trackerControlDelete .iconContent {
+	background-image:url("icon/ionicons/close-round.png");
+}
+
+
+.refreshing .icon.headerControlRefresh .iconContent {
+	-webkit-animation: spin 1s infinite linear;
+}
+.refreshing .icon.trackerControlRefresh .iconContent {
+	-webkit-animation: spin 1s infinite linear;
+}
+
+.icon.loading .iconContent {
+	background-image:url("icon/ionicons/load-c.png");
+	-webkit-animation: spin 1s infinite linear;
+}
+
+.refreshing .trackerValue .valueRefreshingImg {
+	-webkit-animation: spin 1s infinite linear;
+	-webkit-filter: invert(1);
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+	}
+}

@@ -1,0 +1,246 @@
+*{
+	margin:0;
+	padding:0;
+	font-family:"細明體", "MingLiU", "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	cursor:default;
+	
+	overflow:hidden;
+	
+	list-style:none;
+	
+	line-height:1.25;
+}
+
+input {
+	font-size:inherit;
+}
+
+
+html{
+	font-size:12px;
+	
+	height:20.75em;
+}
+
+body{
+	font-size:1em;
+	
+	position:relative;
+	
+	width:23em;
+	height:20em;
+	
+	padding:0.5em 0.25em 0.25em;
+}
+
+.panel {
+	width:100%;
+	height:100%;
+	
+	display:none;
+}
+.icon .iconContent{
+	width:100%;
+	height:100%;
+}
+
+body.main .panel#main {
+	display:block;
+}
+body.setting .panel#setting {
+	display:block;
+}
+
+.panel .panelHeader {
+	width:100%;
+	height:1.75rem;
+}
+
+.panel .panelHeader .name{
+	float:left;
+	
+	font-size:1.25rem;
+	font-weight:bold;
+	
+	width:17rem;
+	margin:0 0 0 0.25rem;
+}
+
+#main .panelHeader .headerControl{
+	float:left;
+	
+	width:4.5rem;
+	height:1.25rem;
+}
+
+#main .panelHeader .headerControl .icon{
+	float:left;
+	
+	width:1.25rem;
+	height:1.25rem;
+	
+	border-radius:0.25rem;
+	
+	margin:0 0 0 0.25rem;
+}
+
+#main #trackerList{
+	overflow-y:scroll;
+
+	width:23rem;
+	height:18.5rem;
+}
+#main #trackerList::-webkit-scrollbar {
+	width:0.25rem;
+}
+#main #trackerList::-webkit-scrollbar-button {
+	display:none;
+}
+
+#main #trackerList .tracker{
+	width:22rem;
+	height:1.5rem;
+	
+	padding:0.25rem 0 0;
+	border-style:solid;
+	border-width:0 0 0.125rem 0;
+	
+	margin:0 0.25rem;
+}
+
+#main #trackerList .tracker .trackerName{
+	float:left;
+	
+	width:8.5rem;
+	height:1.25rem;
+}
+#main #trackerList .tracker .trackerName input{
+	width:8rem;
+	height:1.25rem;
+	
+	padding:0 0.25rem;
+	
+	border-width:0;
+}
+
+#main #trackerList .tracker .trackerValue{
+	float:left;
+	
+	width:13.5rem;
+	height:1.25rem;
+	
+	text-align:center;
+}
+#main #trackerList .tracker .trackerValue .valueContent{
+}
+#main #trackerList .tracker .trackerValue .valueRefreshingImg{
+	display:none;
+	
+	width:1.25rem;
+	height:1.25rem;
+}
+#main #trackerList .tracker.refreshing .trackerValue .valueContent{
+	display:none;
+}
+#main #trackerList .tracker.refreshing .trackerValue .valueRefreshingImg{
+	display:inline;
+}
+
+#main #trackerList .tracker .trackerControl{
+	float:left;
+	
+	width:0rem;
+	height:1.25rem;
+}
+
+#main #trackerList .tracker:hover .trackerValue{
+	width:7rem;
+}
+#main #trackerList .tracker:hover .trackerControl{
+	width:6.5rem;
+}
+
+#main #trackerList .tracker .trackerControl .icon{
+	float:left;
+	
+	width:1.25rem;
+	height:1.25rem;
+	
+	border-radius:0.25rem;
+	
+	margin:0 0 0 0.25rem;
+}
+
+
+#setting #settingItemList{
+	width:100%;
+	height:16.75rem;
+}
+#setting #settingControl{
+	height:1.5rem;
+}
+
+
+#setting #settingItemList .settingItem{
+	border-width:0 0 1px 0;
+	border-style:solid;
+	
+	padding:0.75rem 0;
+	
+	margin:0 0.25rem;
+}
+#setting #settingItemList .settingItem .settingItemTitle{
+	float:left;
+	
+	height:1.25rem;
+	
+	font-weight:bold;
+}
+#setting #settingItemList .settingItem .settingAsDefault{
+	float:right;
+	
+	height:1.25rem;
+}
+#setting #settingItemList .settingItem .settingAsDefault input{
+	float:left;
+	
+	height:1.25rem;
+}
+#setting #settingItemList .settingItem .settingAsDefault label{
+	float:right;
+	
+	height:1.25rem;
+	
+	margin:0 0 0 0.25rem;
+}
+#setting #settingItemList .settingItem .settingItemDetail{
+	clear:both;
+	
+	margin:0.25rem 0 0 0.5rem;
+}
+
+#setting #settingItemList #settingUpdate #settingUpdateInterval {
+	width:4rem;
+}
+#setting #settingItemList #settingNotify #settingNotifyAction{
+	width:20rem;
+}
+
+#setting #settingControl .button{
+	float:right;
+	
+	width:4.5rem;
+	height:1.25rem;
+
+	border-width:1px;
+	border-style:solid;
+	
+	border-radius:1.25rem;
+	
+	margin:0 0.5rem;
+	
+	text-align:center;
+}
+#setting #settingControl #settingCancel{
+	float:left;
+}

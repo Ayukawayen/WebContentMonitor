@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<title>資訊追蹤器</title>
+		<link rel="stylesheet" type="text/css" href="popupStyle.css" />
+		<link rel="stylesheet" type="text/css" href="popup.css" />
+	</head>
+	<body class="main">
+		<div id="main" class="panel">
+			<div class="panelHeader">
+				<div class="name">資訊追蹤器</div>
+				<div class="headerControl">
+					<div class="icon headerControlRefresh" title="立即全部更新"><div class="iconContent"></div></div>
+					<div class="icon headerControlSetting" title="全局設定"><div class="iconContent"></div></div>
+				</div>
+			</div>
+			<ul id="trackerList">
+			</ul>
+		</div>
+		
+		<div id="setting" class="panel">
+			<div class="panelHeader">
+				<input id="settingName" class="name" type="text" value="" />
+			</div>
+			<div id="settingItemList">
+				<div id="settingUpdate" class="settingItem">
+					<div class="settingItemTitle">更新周期</div>
+					<div class="settingAsDefault">
+						<input type="checkbox" id="settingUpdateAsDefault"/><label for="settingUpdateAsDefault">使用全局設定</label>
+					</div>
+					<div class="settingItemDetail">
+						<span>每</span>
+						<input id="settingUpdateInterval" type="number" value="1" min="1" max="60" />
+						<select id="settingUpdateIntervalUnit">
+							<option value="1">分鐘</option>
+							<option value="60">小時</option>
+						</select>
+						<span>檢查更新</span>
+					</div>
+				</div>
+				<div id="settingNotify" class="settingItem">
+					<div class="settingItemTitle">通知</div>
+					<div class="settingAsDefault">
+						<input type="checkbox" id="settingNotifyAsDefault"/><label for="settingNotifyAsDefault">使用全局設定</label>
+					</div>
+					<div class="settingItemDetail">
+						<div>
+							<input type="checkbox" id="settingNotifyPopup"/><label for="settingNotifyPopup" id="settingNotifyPopupLabel">彈出式訊息</label>
+							<input type="checkbox" id="settingNotifySound"/><label for="settingNotifySound" id="settingNotifySoundLabel">音效</label><input type="range" id="settingNotifySoundVol" value="50" min="1" max="100" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="settingControl">
+				<div id="settingCancel" class="button" type="button">取消</div>
+				<div id="settingSave" class="button" type="button">儲存</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="popup.js"></script>

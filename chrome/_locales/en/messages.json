@@ -1,0 +1,127 @@
+﻿{
+	"extName":{
+		"message": "Web Content Monitor"
+	},
+	"extShortName":{
+		"message": "Web Content Monitor"
+	},
+	"extDesc":{
+		"message": "Monitor web page content."
+	},
+	
+	"menuTitle":{
+		"message": "Monitor content"
+	},
+	"menuTitleReached":{
+		"description": "",
+		"message": "Monitor content(limit reached)"
+	},
+	"notiTitle":{
+		"message": "Content value changed"
+	},
+	
+	"popupHeaderRefresh":{
+		"message": "Refresh All Now"
+	},
+	"popupHeaderSetting":{
+		"message": "Global Settings"
+	},
+	"popupTrackerOpen":{
+		"message": "Open in new tab"
+	},
+	"popupTrackerRefresh":{
+		"message": "Refresh now"
+	},
+	"popupTrackerSetting":{
+		"description": "",
+		"message": "Settings"
+	},
+	"popupTrackerDelete":{
+		"description": "",
+		"message": "Remove this content"
+	},
+	"popupTrackerCheckInfo":{
+		"message": "Check for update at $1"
+	},
+
+	"popupSettingUpdateTitle":{
+		"message": "Refresh"
+	},
+	"popupSettingUpdateDetail0":{
+		"message": "Check for updates every"
+	},
+	"popupSettingUpdateDetail1":{
+		"message": ""
+	},
+	"popupSettingUpdateOptionHours":{
+		"message": "hours"
+	},
+	"popupSettingUpdateOptionMinutes":{
+		"message": "minutes"
+	},
+	"popupSettingUpdateOptionSeconds":{
+		"message": "seconds"
+	},
+	"popupSettingNotifyTitle":{
+		"message": "Notification of change"
+	},
+	"popupSettingNotifyActionPopup":{
+		"message": "Popup"
+	},
+	"popupSettingNotifyActionSound":{
+		"message": "Sound"
+	},
+	"popupSettingNotifySoundVol":{
+		"message": "Volume"
+	},
+	"popupSettingAsGlobal":{
+		"description": "",
+		"message": "Use Global Setting"
+	},
+	
+	"popupSettingSave":{
+		"message": "Save"
+	},
+	"popupSettingCancel":{
+		"message": "Cancel"
+	},
+	
+	"popupDeleteConfirm":{
+		"message": "Are you sure you want to remove Content[$1]?\r\nThis action cannot be undone."
+	},
+	
+	"contentHintSelecting":{
+		"description": "",
+		"message": "Click content to track."
+	},
+	"contentHintNaming":{
+		"description": "",
+		"message": "Input content name"
+	},
+	"contentNamingDefault":{
+		"description": "",
+		"message": "Content name"
+	},
+	"contentNext":{
+		"description": "",
+		"message": "Next >"
+	},
+	"contentPrev":{
+		"description": "",
+		"message": "< Prev"
+	},
+	"contentSave":{
+		"description": "",
+		"message": "Save"
+	},
+	"contentCancel":{
+		"description": "",
+		"message": "Cancel"
+	},
+
+	"e_n_d":{
+		"description": "",
+		"message": ""
+	}
+
+}

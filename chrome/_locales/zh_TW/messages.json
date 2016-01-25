@@ -1,0 +1,147 @@
+﻿{
+	"extName":{
+		"description": "附加元件名稱",
+		"message": "資訊追蹤器"
+	},
+	"extShortName":{
+		"description": "附加元件短名稱",
+		"message": "資訊追蹤器"
+	},
+	"extDesc":{
+		"description": "附加元件說明",
+		"message": "追蹤網頁上的特定資訊"
+	},
+	
+	"menuTitle":{
+		"description": "",
+		"message": "新增資訊追蹤"
+	},
+	"menuTitleReached":{
+		"description": "",
+		"message": "新增資訊追蹤(已達上限)"
+	},
+	"notiTitle":{
+		"description": "",
+		"message": "追蹤資訊內容變動"
+	},
+	
+	"popupHeaderRefresh":{
+		"description": "",
+		"message": "立即全部更新"
+	},
+	"popupHeaderSetting":{
+		"description": "",
+		"message": "全局設定"
+	},
+	"popupTrackerOpen":{
+		"description": "",
+		"message": "在新分頁開啟網頁"
+	},
+	"popupTrackerRefresh":{
+		"description": "",
+		"message": "立即更新"
+	},
+	"popupTrackerSetting":{
+		"description": "",
+		"message": "設定"
+	},
+	"popupTrackerDelete":{
+		"description": "",
+		"message": "移除此資訊"
+	},
+	"popupTrackerCheckInfo":{
+		"description": "",
+		"message": "檢查更新於: $1"
+	},
+	
+	"popupSettingUpdateTitle":{
+		"description": "",
+		"message": "更新周期"
+	},
+	"popupSettingUpdateDetail0":{
+		"description": "",
+		"message": "每"
+	},
+	"popupSettingUpdateDetail1":{
+		"description": "",
+		"message": "檢查更新"
+	},
+	"popupSettingUpdateOptionHours":{
+		"message": "小時"
+	},
+	"popupSettingUpdateOptionMinutes":{
+		"message": "分鐘"
+	},
+	"popupSettingUpdateOptionSeconds":{
+		"message": "秒"
+	},
+	"popupSettingNotifyTitle":{
+		"description": "",
+		"message": "變動通知"
+	},
+	"popupSettingNotifyActionPopup":{
+		"description": "",
+		"message": "彈出式訊息"
+	},
+	"popupSettingNotifyActionSound":{
+		"description": "",
+		"message": "音效"
+	},
+	"popupSettingNotifySoundVol":{
+		"description": "",
+		"message": "音量"
+	},
+	"popupSettingAsGlobal":{
+		"description": "",
+		"message": "使用全局設定"
+	},
+	
+	"popupSettingSave":{
+		"description": "",
+		"message": "儲存"
+	},
+	"popupSettingCancel":{
+		"description": "",
+		"message": "取消"
+	},
+	
+	"popupDeleteConfirm":{
+		"description": "",
+		"message": "確定要移除資訊[$1]？\r\n這個動作無法復原。"
+	},
+	
+	
+	"contentHintSelecting":{
+		"description": "",
+		"message": "點選欲追蹤之資訊"
+	},
+	"contentHintNaming":{
+		"description": "",
+		"message": "輸入資訊名稱"
+	},
+	"contentNamingDefault":{
+		"description": "",
+		"message": "資訊名稱"
+	},
+	"contentNext":{
+		"description": "",
+		"message": "下一步 >"
+	},
+	"contentPrev":{
+		"description": "",
+		"message": "< 上一步"
+	},
+	"contentSave":{
+		"description": "",
+		"message": "儲存"
+	},
+	"contentCancel":{
+		"description": "",
+		"message": "取消"
+	},
+	
+	"e_n_d":{
+		"description": "",
+		"message": ""
+	}
+}

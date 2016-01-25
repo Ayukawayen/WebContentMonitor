@@ -1,0 +1,101 @@
+#netAyukawayenInfoTrackerPopup *{
+	margin:0;
+	padding:0;
+
+	font-size:inherit;
+	font-weight:initial;
+	text-align:initial;
+	
+	box-sizing:initial;
+}
+
+#netAyukawayenInfoTrackerPopup{
+	position:fixed;
+	
+	z-index:1000;
+	
+	top:1em;
+	right:1em;
+	
+	font-size:12px;
+	
+	width:20em;
+	height:9em;
+
+	padding:1em 0.5em;
+	border-width:1px;
+	border-radius:1em;
+	border-style:solid;
+	
+	border-color:#333;
+	background-color:#ccc;
+	color:#000;
+	
+	box-sizing:initial;
+	box-shadow:#999 0.25rem 0.25rem;
+}
+
+#netAyukawayenInfoTrackerPopup input{
+	font-size:inherit;
+	border-width:0;
+}
+
+#netAyukawayenInfoTrackerPopup .trackerName{
+	float:left;
+	
+	width:8em;
+	height:1.25em;
+}
+#netAyukawayenInfoTrackerPopup .trackerName input{
+	width:7em;
+	height:1.25em;
+	
+	padding:0 0.5em;
+}
+#netAyukawayenInfoTrackerPopup .trackerValue{
+	float:left;
+	
+	width:11em;
+	height:1.25em;
+
+	margin:0 0 0 0.5em;
+	overflow:hidden;
+	
+	background-color:#33f;
+	color:#ff0;
+	font-weight:bold;
+}
+
+#netAyukawayenInfoTrackerPopup .trackerHint{
+	clear:both;
+	
+	width:19em;
+	height:5em;
+
+	margin:2em 0 0 0.5em;
+	
+	font-style:italic;
+}
+
+#netAyukawayenInfoTrackerPopup .trackerControl{
+	width:20em;
+	height:1.75em;
+
+	margin:0.5em 0 0;
+}
+
+#netAyukawayenInfoTrackerPopup .trackerControl .trackerControlItem{
+	width:5em;
+	height:1.25em;
+
+	margin:0.25em 0.25em 0;
+	
+	text-align:center;
+}
+#netAyukawayenInfoTrackerPopup .trackerControl .trackerControlCancel{
+	float:left;
+}
+#netAyukawayenInfoTrackerPopup .trackerControl .trackerControlSubmit{
+	float:right;
+}
+
