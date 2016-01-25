@@ -24,9 +24,18 @@ body{
 	background-color:#666;
 	color:#fff;
 }
-#trackerList .tracker.changed .trackerValue{
-	color:#ff0;
+
+#trackerList .tracker .trackerValue.prev {
+	color:#999;
+}
+#trackerList .tracker.changed .trackerValue {
 	font-weight:bold;
+}
+#trackerList .tracker.changed .trackerValue.prev {
+	color:#ccc;
+}
+#trackerList .tracker.changed .trackerValue.current {
+	color:#ff0;
 }
 
 .icon{

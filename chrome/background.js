@@ -184,7 +184,9 @@ function getGlobalSetting() {
 }
 function putGlobalSetting(value) {
 	globalSetting = value;
-	saveGlobalSetting();
+	saveGlobalSetting(function(){
+		chrome.runtime.sendMessage({"globalSettingPutted":globalSetting});
+	});
 }
 
 
@@ -311,6 +313,7 @@ function onTrackerHttpRequestResponse(request) {
 	if(!topNode.node) {
 		tracker.isChanged = (tracker.value != "");
 		if(tracker.isChanged) {
+			tracker.valuePrev = tracker.value;
 			tracker.value = "";
 			tracker.hasChanged = true;
 		}
@@ -319,6 +322,7 @@ function onTrackerHttpRequestResponse(request) {
 	
 	tracker.isChanged = (tracker.value != netAyukawayenInfoTrackerQueryController.getNodeValue(topNode.node));
 	if(tracker.isChanged) {
+		tracker.valuePrev = tracker.value;
 		tracker.value = netAyukawayenInfoTrackerQueryController.getNodeValue(topNode.node);
 		tracker.hasChanged = true;
 		
@@ -349,7 +353,13 @@ function loadTrackers(trackerKeys, callback) {
 	chrome.storage.sync.get(trackerKeys, function(result) {
 		trackers = {};
 		for(var key in result) {
-			var tracker = Wrapper.unwrap(JSON.parse(result[key]), Tracker.template);
+			var tracker = JSON.parse(result[key]);
+			if(!tracker.id) {
+				var tracker = Wrapper.unwrap(JSON.parse(result[key]), Tracker.template);
+				//continue;
+			}
+			tracker.setting.display = tracker.setting.display || globalSetting.display;
+
 			trackers[tracker.id] = tracker;
 		}
 		if(callback) {
@@ -361,7 +371,7 @@ function loadTrackers(trackerKeys, callback) {
 function save(callback) {
 	var trackerDatas = {};
 	for(var trackerId in trackers) {
-		trackerDatas["tracker_"+trackerId] = JSON.stringify(Wrapper.wrap(trackers[trackerId], Tracker.template));
+		trackerDatas["tracker_"+trackerId] = JSON.stringify(trackers[trackerId]);
 	}
 	trackerDatas["trackerIds"] = Object.keys(trackers);
 	chrome.storage.sync.set(trackerDatas, function(){
@@ -374,13 +384,17 @@ function save(callback) {
 function loadGlobalSetting(callback) {
 	chrome.storage.sync.get({"globalSetting":globalSetting}, function(result) {
 		globalSetting = result.globalSetting;
+		globalSetting.display = globalSetting.display || {"isAsDefault":true, "prev":false};
 		if(callback) {
 			callback();
 		}
 	});
 }
-function saveGlobalSetting() {
+function saveGlobalSetting(callback) {
 	chrome.storage.sync.set({"globalSetting":globalSetting}, function() {
+		if(callback) {
+			callback(globalSetting);
+		}
 	});
 }
 

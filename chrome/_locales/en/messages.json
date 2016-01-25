@@ -74,6 +74,14 @@
 	"popupSettingNotifySoundVol":{
 		"message": "Volume"
 	},
+	"popupSettingDisplayTitle":{
+		"description": "",
+		"message": "Display"
+	},
+	"popupSettingDisplayPrev":{
+		"description": "",
+		"message": "Display old value"
+	},
 	"popupSettingAsGlobal":{
 		"description": "",
 		"message": "Use Global Setting"

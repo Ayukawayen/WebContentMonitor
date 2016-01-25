@@ -10,6 +10,9 @@ var globalSetting = {
 		"action":0,
 		"soundVol":25,
 	},
+	"display":{
+		"prev":false,
+	},
 };
 var selectedTracker = null;
 
@@ -50,6 +53,10 @@ function i18n() {
 	document.querySelector("#setting #settingItemList #settingNotify #settingNotifyPopupLabel").innerHTML = chrome.i18n.getMessage("popupSettingNotifyActionPopup");
 	document.querySelector("#setting #settingItemList #settingNotify #settingNotifySoundLabel").innerHTML = chrome.i18n.getMessage("popupSettingNotifyActionSound");
 	
+	document.querySelector("#setting #settingItemList #settingDisplay .settingItemTitle").innerHTML = chrome.i18n.getMessage("popupSettingDisplayTitle");
+	document.querySelector("#setting #settingItemList #settingDisplay .settingAsDefault label").innerHTML = chrome.i18n.getMessage("popupSettingAsGlobal");
+	document.querySelector("#setting #settingItemList #settingDisplay #settingDisplayPrevLabel").innerHTML = chrome.i18n.getMessage("popupSettingDisplayPrev");
+	
 	document.querySelector("#setting #settingControl #settingCancel").innerHTML = chrome.i18n.getMessage("popupSettingCancel");
 	document.querySelector("#setting #settingControl #settingSave").innerHTML = chrome.i18n.getMessage("popupSettingSave");
 }
@@ -87,20 +94,24 @@ function onTrackersLoad(){
 			if(request.trackerRefreshed) {
 				onTrackerRefreshed(request.trackerRefreshed);
 			}
+			if(request.globalSettingPutted) {
+				onGlobalSettingPutted(request.globalSettingPutted);
+			}
 		}
 	);
 	
 	document.querySelector("#main .panelHeader .headerControl .headerControlRefresh").addEventListener("click", onControlRefreshClick);
 	document.querySelector("#main .panelHeader .headerControl .headerControlSetting").addEventListener("click", onControlSettingClick);
-	//document.querySelector("#main .panelHeader .headerControl .headerControlCreate").addEventListener("click", onControlCreateClick);
 	
 	document.querySelector("#setting #settingUpdate .settingAsDefault input").addEventListener("change", onSettingUpdateAsDefaultChange);
 	document.querySelector("#setting #settingNotify .settingAsDefault input").addEventListener("change", onSettingNotifyAsDefaultChange);
+	document.querySelector("#setting #settingDisplay .settingAsDefault input").addEventListener("change", onSettingDisplayAsDefaultChange);
 	document.querySelector("#setting #settingUpdate #settingUpdateInterval").addEventListener("change", onSettingUpdateChange);
 	document.querySelector("#setting #settingUpdate #settingUpdateIntervalUnit").addEventListener("change", onSettingUpdateChange);
 	document.querySelector("#setting #settingNotify #settingNotifyPopup").addEventListener("change", onSettingNotifyPopupChange);
 	document.querySelector("#setting #settingNotify #settingNotifySound").addEventListener("change", onSettingNotifySoundChange);
 	document.querySelector("#setting #settingNotify #settingNotifySoundVol").addEventListener("change", onSettingNotifySoundVolChange);
+	document.querySelector("#setting #settingDisplay #settingDisplayPrev").addEventListener("change", onSettingDisplayPrevChange);
 
 	document.querySelector("#settingCancel").addEventListener("click", onSettingCancelClick);
 	document.querySelector("#settingSave").addEventListener("click", onSettingSaveClick);
@@ -137,18 +148,24 @@ function onControlSettingClick(){
 
 	document.querySelector("#settingUpdate .settingAsDefault").style.display = "none";
 	document.querySelector("#settingNotify .settingAsDefault").style.display = "none";
+	document.querySelector("#settingDisplay .settingAsDefault").style.display = "none";
 	
 	wrapUpdateInterval(globalSetting.update.interval);
+	
 	document.querySelector("#settingNotify #settingNotifyPopup").checked = (globalSetting.notify.action&1) > 0;
 	document.querySelector("#settingNotify #settingNotifySound").checked = (globalSetting.notify.action&2) > 0;
 	document.querySelector("#settingNotify #settingNotifySoundVol").value = globalSetting.notify.soundVol;
 	document.querySelector("#settingNotify #settingNotifySoundVol").style.display = "inline";
 	
+	document.querySelector("#settingDisplay #settingDisplayPrev").checked = globalSetting.display.prev;
+	
 	document.querySelector("#settingUpdate .settingAsDefault input").checked = false;
 	document.querySelector("#settingNotify .settingAsDefault input").checked = false;
+	document.querySelector("#settingDisplay .settingAsDefault input").checked = false;
 
 	onSettingUpdateAsDefaultChange.call(document.querySelector("#settingUpdate .settingAsDefault input"));
 	onSettingNotifyAsDefaultChange.call(document.querySelector("#settingNotify .settingAsDefault input"));
+	onSettingDisplayAsDefaultChange.call(document.querySelector("#settingDisplay .settingAsDefault input"));
 	
 	document.querySelector("body").className = "setting";
 }
@@ -195,15 +212,19 @@ function onTrackerSettingClick(tracker){
 	document.querySelector("#settingNotify #settingNotifyPopup").checked = (selectedTracker.setting.notify.action&1) > 0;
 	document.querySelector("#settingNotify #settingNotifySound").checked = (selectedTracker.setting.notify.action&2) > 0;
 	document.querySelector("#settingNotify #settingNotifySoundVol").style.display = "none";
+	document.querySelector("#settingDisplay #settingDisplayPrev").checked = selectedTracker.setting.display.prev;
 	
 	document.querySelector("#settingUpdate .settingAsDefault input").checked = selectedTracker.setting.update.isAsDefault;
 	document.querySelector("#settingNotify .settingAsDefault input").checked = selectedTracker.setting.notify.isAsDefault;
+	document.querySelector("#settingDisplay .settingAsDefault input").checked = selectedTracker.setting.display.isAsDefault;
 
 	document.querySelector("#settingUpdate .settingAsDefault").style.display = "block";
 	document.querySelector("#settingNotify .settingAsDefault").style.display = "block";
+	document.querySelector("#settingDisplay .settingAsDefault").style.display = "block";
 	
 	onSettingUpdateAsDefaultChange.call(document.querySelector("#settingUpdate .settingAsDefault input"));
 	onSettingNotifyAsDefaultChange.call(document.querySelector("#settingNotify .settingAsDefault input"));
+	onSettingDisplayAsDefaultChange.call(document.querySelector("#settingDisplay .settingAsDefault input"));
 	
 	document.querySelector("body").className = "setting";
 }
@@ -239,6 +260,9 @@ function onSettingNotifySoundVolChange(){
 	background.sound.volume = this.value/100;
 	background.sound.play();
 }
+function onSettingDisplayPrevChange(){
+	document.querySelector("#settingDisplay .settingAsDefault input").checked = false;
+}
 function onSettingUpdateAsDefaultChange(){
 //	document.querySelector("#settingUpdate #settingUpdateInterval").disabled = this.checked ? "disabled" : null;
 	if(this.checked) {
@@ -251,6 +275,11 @@ function onSettingNotifyAsDefaultChange(){
 	if(this.checked) {
 		document.querySelector("#settingNotify #settingNotifyPopup").checked = (globalSetting.notify.action&1) > 0;
 		document.querySelector("#settingNotify #settingNotifySound").checked = (globalSetting.notify.action&2) > 0;
+	}
+}
+function onSettingDisplayAsDefaultChange(){
+	if(this.checked) {
+		document.querySelector("#settingDisplay #settingDisplayPrev").checked = globalSetting.display.prev;
 	}
 }
 
@@ -266,6 +295,7 @@ function onSettingSaveClick(){
 		globalSetting.notify.action = (document.querySelector("#settingNotify #settingNotifyPopup").checked?1:0) | (document.querySelector("#settingNotify #settingNotifySound").checked?2:0);
 		globalSetting.notify.soundVol = document.querySelector("#settingNotify #settingNotifySoundVol").value;
 		background.sound.volume = globalSetting.notify.soundVol/100;
+		globalSetting.display.prev = document.querySelector("#settingDisplay #settingDisplayPrev").checked;
 		
 		chrome.runtime.sendMessage(
 			{"putGlobalSetting":globalSetting},
@@ -281,9 +311,11 @@ function onSettingSaveClick(){
 	
 	selectedTracker.setting.update.isAsDefault = document.querySelector("#settingUpdate .settingAsDefault input").checked;
 	selectedTracker.setting.notify.isAsDefault = document.querySelector("#settingNotify .settingAsDefault input").checked;
+	selectedTracker.setting.display.isAsDefault = document.querySelector("#settingDisplay .settingAsDefault input").checked;
 
 	selectedTracker.setting.update.interval = getUpdateInterval();
 	selectedTracker.setting.notify.action = (document.querySelector("#settingNotify #settingNotifyPopup").checked?1:0) | (document.querySelector("#settingNotify #settingNotifySound").checked?2:0);
+	selectedTracker.setting.display.prev = document.querySelector("#settingDisplay #settingDisplayPrev").checked;
 	
 	chrome.runtime.sendMessage(
 		{"putTracker":selectedTracker},
@@ -309,7 +341,8 @@ function onTrackerDeleted(tracker) {
 }
 function onTrackerPutted(tracker) {
 	trackers[tracker.id] = tracker;
-	
+	refreshDisplay(tracker);
+
 	selectedTracker = null;
 	document.querySelector("body").className = "main";
 }
@@ -320,16 +353,18 @@ function onTrackerRefreshed(tracker) {
 	
 	setIsTrackerRefreshing(tracker.id, false);
 }
-
+function onGlobalSettingPutted(value) {
+	globalSetting = value;
+	
+	for(var k in trackers) {
+		refreshDisplay(trackers[k]);
+	}
+}
 
 function createTrackerNode(tracker) {
 	var node = Util.createElement("li", {"class":"tracker",}, [
 		Util.createElement("div", {"class":"trackerName",}, [
 			Util.createElement("input", {"type":"text",}, []),
-		]),
-		Util.createElement("div", {"class":"trackerValue",}, [
-			Util.createElement("span", {"class":"valueContent",}, []),
-			Util.createElement("img", {"class":"valueRefreshingImg","src":"icon/ionicons/load-c.png"}, []),
 		]),
 		Util.createElement("div", {"class":"trackerControl",}, [
 			Util.createElement("div", {"class":"icon trackerControlOpen","title":chrome.i18n.getMessage("popupTrackerOpen"),}, [
@@ -345,6 +380,13 @@ function createTrackerNode(tracker) {
 				Util.createElement("div", {"class":"iconContent",}, []),
 			]),
 		]),
+		Util.createElement("div", {"class":"trackerValue prev",}, [
+			Util.createElement("span", {"class":"valueContent",}, []),
+		]),
+		Util.createElement("div", {"class":"trackerValue current",}, [
+			Util.createElement("span", {"class":"valueContent",}, []),
+			Util.createElement("img", {"class":"valueRefreshingImg","src":"icon/ionicons/load-c.png"}, []),
+		]),
 	]);
 	
 	node.querySelector(".trackerName input").addEventListener("change",function(){onTrackerNameChange(node.tracker, this.value);});
@@ -358,15 +400,24 @@ function createTrackerNode(tracker) {
 function updateTrackerNode(node, tracker) {
 	node.tracker = tracker;
 	
+	refreshDisplay(tracker);
+	
 	node.querySelector(".trackerName input").value = tracker.name;
 	node.querySelector(".trackerName").title = tracker.name;
-	node.querySelector(".trackerValue .valueContent").innerHTML = tracker.value;
+	node.querySelector(".trackerValue.current .valueContent").innerHTML = tracker.value;
+	node.querySelector(".trackerValue.prev .valueContent").innerHTML = tracker.valuePrev || "-";
+	node.querySelector(".trackerValue.prev").title = tracker.valuePrev || "-";
 	var lastUpdateText = new Date(tracker.lastUpdate).toLocaleString();
-	node.querySelector(".trackerValue").title = tracker.value+"\r\n\r\n"+chrome.i18n.getMessage("popupTrackerCheckInfo", [lastUpdateText]);
+	node.querySelector(".trackerValue.current").title = tracker.value+"\r\n\r\n"+chrome.i18n.getMessage("popupTrackerCheckInfo", [lastUpdateText]);
 	
 	if(tracker.hasChanged) {
 		Util.addClassName(node, "changed");
 	}
+}
+function refreshDisplay(tracker) {
+	var node = trackerNodes[tracker.id];
+	var isDisplayPrev = tracker.setting.display.isAsDefault ? globalSetting.display.prev : tracker.setting.display.prev;
+	node.setAttribute("displayPrev", (isDisplayPrev ? "true" : "false") );
 }
 
 function setIsTrackerRefreshing(trackerId, isRefreshing) {

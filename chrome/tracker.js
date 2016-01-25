@@ -25,7 +25,7 @@
 		"isChanged",
 		"hasChanged",
 	],
-	
+
 	build: function(id, name, url, querys) {
 		var tracker = {
 			"id":id,
@@ -33,6 +33,7 @@
 			"url":url,
 			"querys":querys,
 			"value":"",
+			"valuePrev":"",
 			"setting":{
 				"update":{
 					"isAsDefault":true,
@@ -42,6 +43,10 @@
 				"notify":{
 					"isAsDefault":true,
 					"action":0,
+				},
+				"display":{
+					"isAsDefault":true,
+					"prev":false,
 				},
 			},
 			"lastUpdate":0,

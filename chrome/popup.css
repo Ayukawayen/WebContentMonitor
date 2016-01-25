@@ -4,11 +4,15 @@
 	font-family:"細明體", "MingLiU", "Lucida Console", Monaco, "Courier New", Courier, monospace;
 	cursor:default;
 	
+	box-sizing:border-box;
+	
 	overflow:hidden;
 	
 	list-style:none;
 	
 	line-height:1.25;
+	
+	direction:ltr;
 }
 
 input {
@@ -26,9 +30,12 @@ body{
 	font-size:1em;
 	
 	position:relative;
-	
-	width:23em;
-	height:20em;
+
+	width:23.5em;
+	height:100%;
+
+	resize:horizontal;
+	direction:rtl;
 	
 	padding:0.5em 0.25em 0.25em;
 }
@@ -62,14 +69,13 @@ body.setting .panel#setting {
 	font-size:1.25rem;
 	font-weight:bold;
 	
-	width:17rem;
 	margin:0 0 0 0.25rem;
 }
 
 #main .panelHeader .headerControl{
-	float:left;
+	float:right;
 	
-	width:4.5rem;
+	width:5rem;
 	height:1.25rem;
 }
 
@@ -87,7 +93,7 @@ body.setting .panel#setting {
 #main #trackerList{
 	overflow-y:scroll;
 
-	width:23rem;
+	width:100%;
 	height:18.5rem;
 }
 #main #trackerList::-webkit-scrollbar {
@@ -97,9 +103,17 @@ body.setting .panel#setting {
 	display:none;
 }
 
+
+#main #trackerList .tracker{ height:1.75rem; }
+#main #trackerList .tracker .trackerValue.prev { display:none; }
+#main #trackerList .tracker .trackerControl { padding:0 0 0; }
+
+#main #trackerList .tracker[displayPrev="true"] { height:3rem; }
+#main #trackerList .tracker[displayPrev="true"] .trackerValue.prev { display:block; }
+#main #trackerList .tracker[displayPrev="true"] .trackerControl { padding:0.5rem 0 0; }
+
 #main #trackerList .tracker{
-	width:22rem;
-	height:1.5rem;
+	width:100%;
 	
 	padding:0.25rem 0 0;
 	border-style:solid;
@@ -109,14 +123,20 @@ body.setting .panel#setting {
 }
 
 #main #trackerList .tracker .trackerName{
+	width:35%;
+}
+#main #trackerList .tracker:hover .trackerControl{
+	width:6.5rem;
+}
+
+#main #trackerList .tracker .trackerName{
 	float:left;
 	
-	width:8.5rem;
-	height:1.25rem;
+	height:100%;
 }
 #main #trackerList .tracker .trackerName input{
-	width:8rem;
-	height:1.25rem;
+	width:100%;
+	height:100%;
 	
 	padding:0 0.25rem;
 	
@@ -124,15 +144,16 @@ body.setting .panel#setting {
 }
 
 #main #trackerList .tracker .trackerValue{
-	float:left;
-	
-	width:13.5rem;
 	height:1.25rem;
+	
+	padding:0 0.5rem;
 	
 	text-align:center;
 }
+
 #main #trackerList .tracker .trackerValue .valueContent{
 }
+
 #main #trackerList .tracker .trackerValue .valueRefreshingImg{
 	display:none;
 	
@@ -147,17 +168,10 @@ body.setting .panel#setting {
 }
 
 #main #trackerList .tracker .trackerControl{
-	float:left;
+	float:right;
 	
 	width:0rem;
-	height:1.25rem;
-}
-
-#main #trackerList .tracker:hover .trackerValue{
-	width:7rem;
-}
-#main #trackerList .tracker:hover .trackerControl{
-	width:6.5rem;
+	height:100%;
 }
 
 #main #trackerList .tracker .trackerControl .icon{

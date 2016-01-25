@@ -91,6 +91,14 @@
 		"description": "",
 		"message": "音量"
 	},
+	"popupSettingDisplayTitle":{
+		"description": "",
+		"message": "顯示"
+	},
+	"popupSettingDisplayPrev":{
+		"description": "",
+		"message": "顯示過去資訊"
+	},
 	"popupSettingAsGlobal":{
 		"description": "",
 		"message": "使用全局設定"
