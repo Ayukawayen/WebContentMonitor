@@ -31,13 +31,23 @@ body{
 	
 	position:relative;
 
-	width:23.5em;
+	min-width:23.5em;
+	max-width:800px;
 	height:100%;
 
 	resize:horizontal;
 	direction:rtl;
 	
 	padding:0.5em 0.25em 0.25em;
+}
+
+body:active{
+	width:0;
+}
+
+#wrapper {
+	min-width:100%;
+	max-width:100%;
 }
 
 .panel {

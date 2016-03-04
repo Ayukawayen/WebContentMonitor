@@ -19,6 +19,7 @@ var selectedTracker = null;
 var background = chrome.extension.getBackgroundPage();
  
 addEventListener("unload", function(e) {
+	localStorage.setItem('popupWidth', document.querySelector('#wrapper').clientWidth);
 	background.onPopupClosed();
 }, true);
 
@@ -77,6 +78,13 @@ function onOpen(){
 			onTrackersLoad();
 		}
 	);
+	
+	var width = localStorage.getItem('popupWidth');
+	if(width && width>60) {
+		//document.querySelector('body').style.setProperty('width', width+'px');
+		//document.querySelector('body').style.width = width+'px';
+		document.querySelector('#wrapper').style.setProperty('width', width+'px');
+	}
 }
 
 function onTrackersLoad(){
