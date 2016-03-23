@@ -81,8 +81,6 @@ function onOpen(){
 	
 	var width = localStorage.getItem('popupWidth');
 	if(width && width>60) {
-		//document.querySelector('body').style.setProperty('width', width+'px');
-		//document.querySelector('body').style.width = width+'px';
 		document.querySelector('#wrapper').style.setProperty('width', width+'px');
 	}
 }
