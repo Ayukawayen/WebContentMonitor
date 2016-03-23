@@ -7,6 +7,11 @@ var globalSetting = {
 		"soundVol":25,
 	},
 };
+var localSetting = {
+	"notify":{
+		"soundUrl":'sound.ogg',
+	},
+};
 
 var TimerInterval = 1*60*1000;
 var TrackerLimit = 100;
@@ -20,7 +25,7 @@ var refreshingTrackerIds = {};
 var menuId = null;
 var isTrackerLimitReached = false;
 
-var sound = new Audio("sound.ogg");
+var sound = new Audio(localSetting.notify.soundUrl || 'sound.ogg');
 sound.volume = globalSetting.notify.soundVol/100;
 var notiId = "";
 var notiItems = {};
@@ -30,7 +35,7 @@ var unreadTrackerIds = {};
 chrome.browserAction.setTitle({"title":chrome.i18n.getMessage("extName")});
 chrome.browserAction.setBadgeBackgroundColor({"color":"#ff0"});
 
-loadGlobalSetting(null);
+loadGlobalSetting(onGlobalSettingLoaded);
 load(onTrackersLoad);
 
 function onTrackersLoad(){
@@ -94,6 +99,11 @@ function onTrackersLoad(){
 		notiItems = {};
 	});
 	onTimerTick();
+}
+
+function onGlobalSettingLoaded() {
+	sound = new Audio(localSetting.notify.soundUrl || 'sound.ogg');
+	sound.volume = globalSetting.notify.soundVol/100;
 }
 
 function onTimerTick(){
@@ -183,6 +193,10 @@ function getGlobalSetting() {
 	return globalSetting;
 }
 function putGlobalSetting(value) {
+	if(value.notify && value.notify.soundUrl) {
+		localSetting.notify.soundUrl = value.notify.soundUrl;
+		delete value.notify.soundUrl;
+	}
 	globalSetting = value;
 	saveGlobalSetting(function(){
 		chrome.runtime.sendMessage({"globalSettingPutted":globalSetting});
@@ -382,6 +396,7 @@ function save(callback) {
 }
 
 function loadGlobalSetting(callback) {
+	localSetting.notify.soundUrl = localStorage.getItem('soundUrl') || 'sound.ogg';
 	chrome.storage.sync.get({"globalSetting":globalSetting}, function(result) {
 		globalSetting = result.globalSetting;
 		globalSetting.display = globalSetting.display || {"isAsDefault":true, "prev":false};
@@ -391,6 +406,7 @@ function loadGlobalSetting(callback) {
 	});
 }
 function saveGlobalSetting(callback) {
+	localStorage.setItem('soundUrl', localSetting.notify.soundUrl || 'sound.ogg');
 	chrome.storage.sync.set({"globalSetting":globalSetting}, function() {
 		if(callback) {
 			callback(globalSetting);

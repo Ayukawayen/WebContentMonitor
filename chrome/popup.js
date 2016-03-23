@@ -9,6 +9,7 @@ var globalSetting = {
 	"notify":{
 		"action":0,
 		"soundVol":25,
+		"soundUrl":"sound.ogg",
 	},
 	"display":{
 		"prev":false,
@@ -22,6 +23,14 @@ addEventListener("unload", function(e) {
 	localStorage.setItem('popupWidth', document.querySelector('#wrapper').clientWidth);
 	background.onPopupClosed();
 }, true);
+
+var soundFileReader = new FileReader();
+soundFileReader.onloadend = function() {
+	background.sound.pause();
+	background.sound = new Audio(this.result);
+	globalSetting.notify.soundUrl = this.result;
+	replaySound();
+};
 
 
 i18n();
@@ -117,6 +126,7 @@ function onTrackersLoad(){
 	document.querySelector("#setting #settingNotify #settingNotifyPopup").addEventListener("change", onSettingNotifyPopupChange);
 	document.querySelector("#setting #settingNotify #settingNotifySound").addEventListener("change", onSettingNotifySoundChange);
 	document.querySelector("#setting #settingNotify #settingNotifySoundVol").addEventListener("change", onSettingNotifySoundVolChange);
+	document.querySelector("#setting #settingNotify #settingNotifySoundFile").addEventListener("change", onSettingNotifySoundFileChange);
 	document.querySelector("#setting #settingDisplay #settingDisplayPrev").addEventListener("change", onSettingDisplayPrevChange);
 
 	document.querySelector("#settingCancel").addEventListener("click", onSettingCancelClick);
@@ -162,6 +172,7 @@ function onControlSettingClick(){
 	document.querySelector("#settingNotify #settingNotifySound").checked = (globalSetting.notify.action&2) > 0;
 	document.querySelector("#settingNotify #settingNotifySoundVol").value = globalSetting.notify.soundVol;
 	document.querySelector("#settingNotify #settingNotifySoundVol").style.display = "inline";
+	document.querySelector("#settingNotify #settingNotifySoundFile").style.display = "inline";
 	
 	document.querySelector("#settingDisplay #settingDisplayPrev").checked = globalSetting.display.prev;
 	
@@ -218,6 +229,7 @@ function onTrackerSettingClick(tracker){
 	document.querySelector("#settingNotify #settingNotifyPopup").checked = (selectedTracker.setting.notify.action&1) > 0;
 	document.querySelector("#settingNotify #settingNotifySound").checked = (selectedTracker.setting.notify.action&2) > 0;
 	document.querySelector("#settingNotify #settingNotifySoundVol").style.display = "none";
+	document.querySelector("#settingNotify #settingNotifySoundFile").style.display = "none";
 	document.querySelector("#settingDisplay #settingDisplayPrev").checked = selectedTracker.setting.display.prev;
 	
 	document.querySelector("#settingUpdate .settingAsDefault input").checked = selectedTracker.setting.update.isAsDefault;
@@ -255,17 +267,33 @@ function onSettingNotifyPopupChange(){
 function onSettingNotifySoundChange(){
 	document.querySelector("#settingNotify .settingAsDefault input").checked = false;
 	if(this.checked) {
-		background.sound.pause();
-		background.sound.currentTime = 0;
-		background.sound.play();
+		replaySound();
 	}
 }
 function onSettingNotifySoundVolChange(){
 	background.sound.pause();
-	background.sound.currentTime = 0;
 	background.sound.volume = this.value/100;
+	replaySound();
+}
+function onSettingNotifySoundFileChange(){
+	var file = document.querySelector("#settingNotify #settingNotifySoundFile").files[0];
+	if(!file) {
+		return;
+	}
+	
+	if(!background.sound.canPlayType(file.type)) {
+		alert(chrome.i18n.getMessage("popupFileFormatNotSupported"));
+		return;
+	}
+	soundFileReader.readAsDataURL(file);
+}
+function replaySound() {
+	background.sound.pause();
+	background.sound.currentTime = 0;
 	background.sound.play();
 }
+
+
 function onSettingDisplayPrevChange(){
 	document.querySelector("#settingDisplay .settingAsDefault input").checked = false;
 }
@@ -300,6 +328,7 @@ function onSettingSaveClick(){
 		globalSetting.update.interval = getUpdateInterval();
 		globalSetting.notify.action = (document.querySelector("#settingNotify #settingNotifyPopup").checked?1:0) | (document.querySelector("#settingNotify #settingNotifySound").checked?2:0);
 		globalSetting.notify.soundVol = document.querySelector("#settingNotify #settingNotifySoundVol").value;
+		background.sound = new Audio(globalSetting.notify.soundUrl);
 		background.sound.volume = globalSetting.notify.soundVol/100;
 		globalSetting.display.prev = document.querySelector("#settingDisplay #settingDisplayPrev").checked;
 		

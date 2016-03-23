@@ -94,6 +94,10 @@
 		"message": "Cancel"
 	},
 	
+	"popupFileFormatNotSupported":{
+		"message": "File format not supported."
+	},
+	
 	"popupDeleteConfirm":{
 		"message": "Are you sure you want to remove Content[$1]?\r\nThis action cannot be undone."
 	},

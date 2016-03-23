@@ -113,6 +113,11 @@
 		"message": "取消"
 	},
 	
+	"popupFileFormatNotSupported":{
+		"description": "",
+		"message": "未支援的檔案格式"
+	},
+	
 	"popupDeleteConfirm":{
 		"description": "",
 		"message": "確定要移除資訊[$1]？\r\n這個動作無法復原。"
