@@ -333,8 +333,17 @@ function onTrackerHttpRequestResponse(request) {
 	
 	for(var key in tracker.querys) {
 		if(queryNodes[key] != topNode.node) {
-			tracker.querys[key].q = netAyukawayenInfoTrackerQueryController.getQuery(topNode.node, netAyukawayenInfoTrackerQuerySelectorFuncs[key]);
 			tracker.querys[key].s = 0;
+			tracker.querys[key].q = netAyukawayenInfoTrackerQueryController.getQuery(topNode.node, netAyukawayenInfoTrackerQuerySelectorFuncs[key]);
+			tracker.querys[key].i = 0;
+			
+			var nodes = dom.querySelectorAll(query.q);
+			for(var i=0;i<nodes.length;++i) {
+				if(nodes[i] == topNode.node) {
+					tracker.querys[key].i = i;
+					break;
+				}
+			}
 		}
 	}
 	
