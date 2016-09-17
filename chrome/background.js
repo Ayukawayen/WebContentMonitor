@@ -28,7 +28,7 @@ var notiItems = {};
 var unreadTrackerIds = {};
 
 chrome.browserAction.setTitle({"title":chrome.i18n.getMessage("extName")});
-chrome.browserAction.setBadgeBackgroundColor({"color":"#ff0"});
+chrome.browserAction.setBadgeBackgroundColor({"color":"#f33"});
 
 loadGlobalSetting(null);
 load(onTrackersLoad);
