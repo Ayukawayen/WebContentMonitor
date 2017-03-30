@@ -13,6 +13,7 @@ var globalSetting = {
 	"display":{
 		"prev":false,
 	},
+	"font":"auto",
 };
 var selectedTracker = null;
 
@@ -58,6 +59,12 @@ function i18n() {
 	document.querySelector("#setting #settingItemList #settingDisplay .settingAsDefault label").innerHTML = chrome.i18n.getMessage("popupSettingAsGlobal");
 	document.querySelector("#setting #settingItemList #settingDisplay #settingDisplayPrevLabel").innerHTML = chrome.i18n.getMessage("popupSettingDisplayPrev");
 	
+	document.querySelector("#setting #settingItemList #settingFont .settingItemTitle").innerHTML = chrome.i18n.getMessage("popupSettingFont");
+	document.querySelector('#setting #settingItemList #settingFont #settingFontSelect option[value="auto"]').innerHTML = chrome.i18n.getMessage("popupSettingFontAuto");
+	document.querySelector('#setting #settingItemList #settingFont #settingFontSelect option[value="serif"]').innerHTML = chrome.i18n.getMessage("popupSettingFontSerif");
+	document.querySelector('#setting #settingItemList #settingFont #settingFontSelect option[value="sans-serif"]').innerHTML = chrome.i18n.getMessage("popupSettingFontSansSerif");
+	document.querySelector('#setting #settingItemList #settingFont #settingFontSelect option[value="monospace"]').innerHTML = chrome.i18n.getMessage("popupSettingFontMonospace");
+	
 	document.querySelector("#setting #settingControl #settingCancel").innerHTML = chrome.i18n.getMessage("popupSettingCancel");
 	document.querySelector("#setting #settingControl #settingSave").innerHTML = chrome.i18n.getMessage("popupSettingSave");
 }
@@ -69,6 +76,7 @@ function onOpen(){
 		{"getGlobalSetting":{}},
 		function(response) {
 			globalSetting = response;
+			document.querySelector("html").setAttribute("fnt", globalSetting.font);
 		}
 	);
 	chrome.runtime.sendMessage(
@@ -118,6 +126,7 @@ function onTrackersLoad(){
 	document.querySelector("#setting #settingNotify #settingNotifySound").addEventListener("change", onSettingNotifySoundChange);
 	document.querySelector("#setting #settingNotify #settingNotifySoundVol").addEventListener("change", onSettingNotifySoundVolChange);
 	document.querySelector("#setting #settingDisplay #settingDisplayPrev").addEventListener("change", onSettingDisplayPrevChange);
+	document.querySelector("#setting #settingItemList #settingFont #settingFontSelect").addEventListener("change", onSettingFontChange);
 
 	document.querySelector("#settingCancel").addEventListener("click", onSettingCancelClick);
 	document.querySelector("#settingSave").addEventListener("click", onSettingSaveClick);
@@ -164,6 +173,9 @@ function onControlSettingClick(){
 	document.querySelector("#settingNotify #settingNotifySoundVol").style.display = "inline";
 	
 	document.querySelector("#settingDisplay #settingDisplayPrev").checked = globalSetting.display.prev;
+	
+	document.querySelector("#settingFont #settingFontSelect").value = globalSetting.font;
+	document.querySelector("#settingFont").style.display = "block";
 	
 	document.querySelector("#settingUpdate .settingAsDefault input").checked = false;
 	document.querySelector("#settingNotify .settingAsDefault input").checked = false;
@@ -227,6 +239,7 @@ function onTrackerSettingClick(tracker){
 	document.querySelector("#settingUpdate .settingAsDefault").style.display = "block";
 	document.querySelector("#settingNotify .settingAsDefault").style.display = "block";
 	document.querySelector("#settingDisplay .settingAsDefault").style.display = "block";
+	document.querySelector("#settingFont").style.display = "none";
 	
 	onSettingUpdateAsDefaultChange.call(document.querySelector("#settingUpdate .settingAsDefault input"));
 	onSettingNotifyAsDefaultChange.call(document.querySelector("#settingNotify .settingAsDefault input"));
@@ -269,6 +282,10 @@ function onSettingNotifySoundVolChange(){
 function onSettingDisplayPrevChange(){
 	document.querySelector("#settingDisplay .settingAsDefault input").checked = false;
 }
+function onSettingFontChange(){
+	document.querySelector("html").setAttribute("fnt", document.querySelector("#settingFont #settingFontSelect").value);
+}
+
 function onSettingUpdateAsDefaultChange(){
 //	document.querySelector("#settingUpdate #settingUpdateInterval").disabled = this.checked ? "disabled" : null;
 	if(this.checked) {
@@ -291,6 +308,7 @@ function onSettingDisplayAsDefaultChange(){
 
 function onSettingCancelClick(){
 	background.sound.volume = globalSetting.notify.soundVol/100;
+	document.querySelector("html").setAttribute("fnt", globalSetting.font);
 	
 	document.querySelector("body").className = "main";
 }
@@ -302,6 +320,8 @@ function onSettingSaveClick(){
 		globalSetting.notify.soundVol = document.querySelector("#settingNotify #settingNotifySoundVol").value;
 		background.sound.volume = globalSetting.notify.soundVol/100;
 		globalSetting.display.prev = document.querySelector("#settingDisplay #settingDisplayPrev").checked;
+		globalSetting.font = wrapFont(document.querySelector("#settingFont #settingFontSelect").value);
+		document.querySelector("html").setAttribute("fnt", globalSetting.font);
 		
 		chrome.runtime.sendMessage(
 			{"putGlobalSetting":globalSetting},
@@ -462,4 +482,11 @@ function wrapUpdateInterval(interval) {
 function getUpdateInterval() {
 	var v = Math.max(1, Math.ceil(document.querySelector("#settingUpdate #settingUpdateInterval").value));
 	return v * document.querySelector("#settingUpdate #settingUpdateIntervalUnit").value;
+}
+
+function wrapFont(font) {
+	if(["serif", "sans-serif", "monospace"].indexOf(font) < 0) {
+		font = "auto";
+	}
+	return font;
 }

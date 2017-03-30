@@ -99,6 +99,27 @@
 		"description": "",
 		"message": "顯示過去資訊"
 	},
+	"popupSettingFont":{
+		"description": "",
+		"message": "字型"
+	},
+	"popupSettingFontAuto":{
+		"description": "",
+		"message": "自動"
+	},
+	"popupSettingFontSerif":{
+		"description": "",
+		"message": "襯線字型"
+	},
+	"popupSettingFontSansSerif":{
+		"description": "",
+		"message": "無襯線字型"
+	},
+	"popupSettingFontMonospace":{
+		"description": "",
+		"message": "等寬字型"
+	},
+	
 	"popupSettingAsGlobal":{
 		"description": "",
 		"message": "使用全局設定"

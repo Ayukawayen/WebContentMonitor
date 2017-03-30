@@ -82,6 +82,27 @@
 		"description": "",
 		"message": "Display old value"
 	},
+	"popupSettingFont":{
+		"description": "",
+		"message": "Font"
+	},
+	"popupSettingFontAuto":{
+		"description": "",
+		"message": "Auto"
+	},
+	"popupSettingFontSerif":{
+		"description": "",
+		"message": "Serif"
+	},
+	"popupSettingFontSansSerif":{
+		"description": "",
+		"message": "Sans-serif"
+	},
+	"popupSettingFontMonospace":{
+		"description": "",
+		"message": "Monospace"
+	},
+
 	"popupSettingAsGlobal":{
 		"description": "",
 		"message": "Use Global Setting"
