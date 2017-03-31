@@ -76,6 +76,7 @@ function onOpen(){
 		{"getGlobalSetting":{}},
 		function(response) {
 			globalSetting = response;
+			globalSetting.font = wrapFont(globalSetting.font);
 			document.querySelector("html").setAttribute("fnt", globalSetting.font);
 		}
 	);
